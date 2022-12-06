@@ -1,0 +1,350 @@
+import java.io.*;
+import java.io.File;
+
+  public class lexicalanalyzer {
+    /* Variables */
+    static int charType;
+    static char lexeme[] = new char[100];
+    static char followingChar;
+    static int lexLen;
+    static int token;
+    static int followingToken;
+    static File in_fp;
+    static int info;
+    static Reader reader;
+  
+    /* Character classes */
+    static int LET = 0;
+    static int DIG = 1;
+    static int NEWLINE = 7;
+    static int OPENCLOSE = 44;
+    static int OPS = 45;
+    static int SYM = 46;
+    static int START = 8;
+    static int END = 9;
+    static int UNKNOWN = 99;
+  
+    /* Token codes */
+    static int INT_LIT = 10;
+    static int IDENT = 11;
+    static int TYPE_STRING = 42;
+    static int TYPE_CHAR = 44;
+    static int TYPE_INT = 45;
+    static int TYPE_FLOAT = 46;
+  
+    // operators
+    static int ADD_OP = 16;
+    static int SUB_OP = 17;
+    static int MULT_OP = 18;
+    static int DIV_OP = 19;
+    static int MOD_OP = 20;
+    static int ASSIGN_OP = 21;
+    static int AND_OP = 40;
+    static int OR_OP = 41;
+  
+    // comparing
+    static int LESS_THAN = 22;
+    static int GREATER_THAN = 23;
+    static int LESS_THAN_EQUAL = 24;
+    static int GREATER_THAN_EQUAL = 25;
+    static int EQUAL_TO = 30;
+    static int NOT_EQUAL = 31;
+  
+    // symbols
+    static int LEFT_PAREN = 26;
+    static int RIGHT_PAREN = 27;
+    static int LEFT_BRACKET = 28;
+    static int RIGHT_BRACKET = 29;
+    static int SEMI = 32;
+    static int COMMA = 33;
+    static int DOT = 34;
+    static int AMP = 35;
+    static int DOL = 36;
+  
+    static int IF_CODE = 37;
+    static int LOOP = 38;
+    static int WHILE = 39;
+  
+    static int VOID = 43;
+    static String keywords[] = new String[] { "phor", "during", "swap", "aswell" };
+  
+// lookup - a function to look up operators and parentheses and return the token
+int lookup(char ch) {
+  switch (ch) {
+  case '(':
+    addChar();
+    followingToken = LEFT_PAREN;
+    break;
+  case ')':
+    addChar();
+    followingToken = RIGHT_PAREN;
+    break;
+  case '{':
+    addChar();
+    followingToken = LEFT_BRACKET;
+    break;
+  case '}':
+    addChar();
+    followingToken = RIGHT_BRACKET;
+    break;
+  case '+':
+    addChar();
+    followingToken = ADD_OP;
+    break;
+  case '-':
+    addChar();
+    followingToken = SUB_OP;
+    break;
+  case '*':
+    addChar();
+    followingToken = MULT_OP;
+    break;
+  case '/':
+    addChar();
+    followingToken = DIV_OP;
+    break;
+  case '=':
+    addChar();
+    getChar();
+    if (followingChar == "="){
+      addChar();
+      followingToken = EQUALS_TO;  
+    } else if (followingChar == " "){
+      addChar();
+      followingToken = ASSIGN_OP;
+    }
+    break;
+  case '%':
+    addChar();
+    followingToken = MOD_OP;
+    break;
+  case ';':
+    addChar();
+    followingToken = SEMI;
+    break;
+  case ',':
+    addChar();
+    followingToken = COMMA;
+    break;
+  case '.':
+    addChar();
+    followingToken = DOT;
+    break;
+  case '<':
+    addChar();
+    getChar();
+    if (followingChar == '=') {
+      addChar();
+      followingToken = LESS_EQUAL_TO;
+    }
+    else if (followingChar == " "){
+      addChar();
+      followingToken = LESS_THAN;
+    }
+    break;
+  case '>':
+    addChar();
+    getChar();
+    if (followingChar == '=') {
+      addChar();
+      followingToken = GREATER_EQUAL_TO;
+    }
+    else if (followingChar == " "){
+      addChar();
+      followingToken = GREATER_THAN;
+    }
+    break;
+
+  case '#':
+    addChar();
+    getChar();
+    if(followingChar == " "){
+      addChar();
+      followingToken = NUM;
+    } else if (followingChar == "S"){
+      followingToken = START;
+    } else if (followingChar == "E"){
+      addChar();
+      followingToken = END;
+    }
+    break;  
+  case '!':
+    addChar();
+    getChar();
+    if (followingChar == '=') {
+        addChar();
+        followingToken = NOT_EQUAL_TO;
+    }
+    break;
+  case '@':
+    addChar();
+    followingToken = AMP;
+    break;
+  case '$':
+    addChar();
+    followingToken = DOL;
+    break;
+  default:
+    addChar();
+    followingToken = UNKOWN;
+    break;
+  }
+  return followingToken;
+}
+
+// lex function 
+public static int lex(){
+  lexLen = 0;
+  getNonBlank();
+
+    switch (charType) {
+
+    case LET:
+      addChar();
+      getChar();
+      while (charType == LET || chaype == DIG || followingChar ==  "_" ) {
+       addChar();
+       getChar();
+      }
+
+      if (String.equals (lexeme, "and") == 0) {
+        followingToken = AND_OP;
+      }      
+      else if (String.equals (lexeme, "or") == 0) {
+        followingToken = OR_OP;
+      }  
+      else if (String.equals (lexeme, "string") == 0) {
+        followingToken = TYPE_STRING;
+      } 
+      else if (String.equals(lexeme, "char") == 0) {
+        followingToken = TYPE_CHAR;
+      } 
+      else if (String.equals (lexeme, "int") == 0) {
+        followingToken = TYPE_INT;
+      }
+       else if (String.equals (lexeme, "float") == 0) {
+        followingToken = TYPE_FLOAT;
+      } 
+      else if (String.equals (lexeme, "void") == 0) {
+        followingToken = VOID;
+      } 
+      else {
+        followingToken =  IDENT;
+      }
+      break;
+        
+    case DIG:
+      addChar(); 
+      getChar();
+      while (charType == DIG){
+        addChar();
+        getChar();
+      }
+      followingToken= INT_LIT;
+   
+    case STRING:
+      addChar();
+      getChar();
+      while (charType != STRING) {
+        addChar();
+        getChar();
+      }
+      addChar();
+      getChar();
+      followingToken = TYPE_STRING;
+      break;
+  
+    case CHAR:
+      addChar();
+      getChar();
+      while (charType != CHAR) {
+        addChar();
+        getChar();
+      }
+      addChar();
+      getChar();
+      followingToken = TYPE_CHAR;
+      if (lexLen > 3) {
+        System.out.println("Character is too long");
+      }
+      break;
+  
+    case SEMI:
+      followingToken = SEMI;
+      addChar();
+      getChar();
+      break;
+  
+    case NEWLINE:
+      followingToken = NEWLINE;
+      addChar();
+      getChar();
+      break;
+          
+    case UNKOWNN:
+      lookup(followingChar);
+      getChar();
+      break;
+    
+    case EOF:
+      followingToken = EOF;
+      lexeme[0] = 'E';
+      lexeme[1] = 'O';
+      lexeme[2] = 'F';
+      lexeme[3] =  '\0';
+      break;
+    }
+    str = new String(lexeme);
+    System.out.println("Next token: " + followingToken);
+    System.out.println("Next lexeme: " + str);
+    return followingToken;
+}
+
+//addchar
+public static void addChar() {
+  if (lexLen <= 98) {
+    lexeme[lexLen++] = followingChar;
+    lexeme[lexLen] = '\0';
+  } else {
+    printf("LEXEME IS TO LONG \n");
+  }
+}
+// getnonblank
+void getNonBlank() {
+  while (Character.isSpaceChar(followingChar)) {
+    getChar();
+  }
+}
+// getchar
+public static void getChar() {
+  info = reader.read(); 
+  info = (char) info;
+
+  if(info == 1){
+    followingChar = info;
+    if (Character.isDigit(followingChar)) {
+      charType = DIG;
+    } 
+    else if (Character.isLetter(followingChar)) {
+      charType = LET;
+    
+   } 
+  else if (followingChar  == '(' || followingChar  == ')' || followingChar  == '{' || followingChar  == '}' || followingChar  == '['  || followingChar  == ']'){
+    charType = OPENCLOSE;
+  } 
+  else if  (followingChar  == '@' || followingChar  == '$' || followingChar  == '&' || followingChar  == '#'){
+    charType = SYM;
+  } 
+  else if  (followingChar  == '-' || followingChar  == '+' || followingChar  == '/' || followingChar  == '%' || followingChar  == '*'  || followingChar  == '='){
+    charType = OPS;
+  }
+   else {
+    charType = UNKNOWN;
+  }
+
+  }
+  else {
+    charType = EOF;
+  }
+}
+}
