@@ -11,27 +11,27 @@ public class syntaxanalyzer extends lexicalanalyzer {
 // <stmt> --> <if_stmt> | <while_stmt> | <as_s> | <block> 
     public static void statement() {
         switch (followingToken) {
-      		case ifstmt: 
-            ifstmt();
-      			break;
-      		case whileloop: 
-            whileloop();
-      			break;
-      		case loop:
-            loop();
-      			break;
-      		case boolexpr:
-            boolexpr();
-      			break;
-      		case assigning:
-            assigning();
-      			break;
-          case block:
-            block();
-            break;
-          default :
-            error();
-            break;
+	case ifstmt: 
+		ifstmt();
+		break;
+	case whileloop: 
+		whileloop();
+		break;
+	case loop:
+		loop();
+		break;
+	case boolexpr:
+		boolexpr();
+		break;
+	case assigning:
+		assigning();
+		break;
+	case block:
+		block();
+		break;
+	default :
+		error();
+		break;
       	}
     }
 // <if_stmt> -->  `if``(`<bool_expr>`)` <stmt> [ `else` <stmt> ]
