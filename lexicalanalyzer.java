@@ -14,8 +14,8 @@ import java.io.File;
     static Reader reader;
   
     /* Character classes */
-    static int LET = 0;
-    static int DIG = 1;
+    static int LET = 0; // letter 
+    static int DIG = 1; // digit 
     static int NEWLINE = 7;
     static int OPENCLOSE = 44;
     static int OPS = 45;
