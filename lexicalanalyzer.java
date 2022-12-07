@@ -16,57 +16,57 @@ import java.io.File;
     /* Character classes */
     static int LET = 0; // letter 
     static int DIG = 1; // digit 
-    static int NEWLINE = 7;
-    static int OPENCLOSE = 44;
-    static int OPS = 45;
-    static int SYM = 46;
-    static int START = 8;
-    static int END = 9;
-    static int UNKNOWN = 99;
+    static int NEWLINE = 7; // newline
+    static int OPENCLOSE = 44; // open or close brackets/parentheses
+    static int OPS = 45;  // operators 
+    static int SYM = 46; //symbols
+    static int START = 8;  // start of code
+    static int END = 9; // end of the code
+    static int UNKNOWN = 99; // tokens that are unknown 
   
     /* Token codes */
-    static int INT_LIT = 10;
-    static int IDENT = 11;
-    static int TYPE_STRING = 42;
-    static int TYPE_CHAR = 44;
-    static int TYPE_INT = 45;
-    static int TYPE_FLOAT = 46;
+    static int INT_LIT = 10; // int literal
+    static int IDENT = 11; // identifier 
+    static int TYPE_STRING = 42; // string type
+    static int TYPE_CHAR = 44;  // char type 
+    static int TYPE_INT = 45; // int type
+    static int TYPE_FLOAT = 46; // float type
   
     // operators
-    static int ADD_OP = 16;
-    static int SUB_OP = 17;
-    static int MULT_OP = 18;
-    static int DIV_OP = 19;
-    static int MOD_OP = 20;
-    static int ASSIGN_OP = 21;
-    static int AND_OP = 40;
-    static int OR_OP = 41;
+    static int ADD_OP = 16; // add operation
+    static int SUB_OP = 17;  // subtraction operation
+    static int MULT_OP = 18; // multiply operation
+    static int DIV_OP = 19;  // divide operation 
+    static int MOD_OP = 20; // modulus operation
+    static int ASSIGN_OP = 21; // assigning operation
+    static int AND_OP = 40; // and operation 
+    static int OR_OP = 41;   // or operation
   
     // comparing
-    static int LESS_THAN = 22;
-    static int GREATER_THAN = 23;
-    static int LESS_THAN_EQUAL = 24;
-    static int GREATER_THAN_EQUAL = 25;
-    static int EQUAL_TO = 30;
-    static int NOT_EQUAL = 31;
+    static int LESS_THAN = 22;  // <
+    static int GREATER_THAN = 23;  // >
+    static int LESS_THAN_EQUAL = 24; // <=
+    static int GREATER_THAN_EQUAL = 25;  // >=
+    static int EQUAL_TO = 30;  // =
+    static int NOT_EQUAL = 31; // !=
   
     // symbols
-    static int LEFT_PAREN = 26;
-    static int RIGHT_PAREN = 27;
-    static int LEFT_BRACKET = 28;
-    static int RIGHT_BRACKET = 29;
-    static int SEMI = 32;
-    static int COMMA = 33;
-    static int DOT = 34;
-    static int AMP = 35;
-    static int DOL = 36;
+    static int LEFT_PAREN = 26; // (
+    static int RIGHT_PAREN = 27;  // )
+    static int LEFT_BRACKET = 28; // [
+    static int RIGHT_BRACKET = 29;  // ]
+    static int SEMI = 32;  // ;
+    static int COMMA = 33;  // ,
+    static int DOT = 34;  // .
+    static int AMP = 35;  // &
+    static int DOL = 36;  // $
   
-    static int IF_CODE = 37;
-    static int LOOP = 38;
-    static int WHILE = 39;
+    static int IF_CODE = 37; // if statments
+    static int LOOP = 38; // for loops
+    static int WHILE = 39; // while loops 
   
     static int VOID = 43;
-    static String keywords[] = new String[] { "phor", "during", "swap", "aswell" };
+    static String keywords[] = new String[] { "phor", "during", "match", "aswell, condition" }; // for, while, switch, and, condition
   
 // lookup - a function to look up operators and parentheses and return the token
 int lookup(char ch) {
