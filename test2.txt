@@ -1,0 +1,22 @@
+#START
+
+    II wallet = 14#
+    II book = 12#
+    II candy = 1#
+    II chips = 3# 
+
+    during (wallet > chips){
+        wallet - chips#
+    }   
+
+    condition (wallet >= 1){
+        wallet - candy#
+    }
+
+#END
+
+
+in this program we have wallet and 3 items that cost money.
+while wallet  is  greater than chip, we will subtract the price of chips
+from the wallet. at the end we will check the if statement, if there is money
+still in the wallet (wallet  >= 1), we will subtract  candy from wallet
