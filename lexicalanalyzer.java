@@ -2,6 +2,7 @@ import java.io.*;
 import java.io.File;
 
   public class lexicalanalyzer {
+
     /* Variables */
     static int charType;
     static char lexeme[] = new char[100];
@@ -68,7 +69,7 @@ import java.io.File;
     static int VOID = 43;
     static String keywords[] = new String[] { "phor", "during", "match", "aswell, condition" }; // for, while, switch, and, condition
   
-// lookup - a function to look up operators and parentheses and return the token
+// lookup - a function to look up operators, symbols, and parentheses and return the token
 int lookup(char ch) {
   switch (ch) {
   case '(':
@@ -79,11 +80,11 @@ int lookup(char ch) {
     addChar();
     followingToken = RIGHT_PAREN;
     break;
-  case '{':
+  case '[':
     addChar();
     followingToken = LEFT_BRACKET;
     break;
-  case '}':
+  case ']':
     addChar();
     followingToken = RIGHT_BRACKET;
     break;
@@ -161,9 +162,9 @@ int lookup(char ch) {
     if(followingChar == " "){
       addChar();
       followingToken = NUM;
-    } else if (followingChar == "S"){
+    } else if (followingChar == "START"){  //start of program
       followingToken = START;
-    } else if (followingChar == "E"){
+    } else if (followingChar == "END"){ // end of program
       addChar();
       followingToken = END;
     }
@@ -184,6 +185,7 @@ int lookup(char ch) {
     addChar();
     followingToken = DOL;
     break;
+  //  if token/lexeme does not match any of  the cases, it is set as UNKNOWN
   default:
     addChar();
     followingToken = UNKOWN;
@@ -198,7 +200,6 @@ public static int lex(){
   getNonBlank();
 
     switch (charType) {
-
     case LET:
       addChar();
       getChar();
@@ -315,6 +316,7 @@ void getNonBlank() {
     getChar();
   }
 }
+
 // getchar
 public static void getChar() {
   info = reader.read(); 
@@ -329,7 +331,7 @@ public static void getChar() {
       charType = LET;
     
    } 
-  else if (followingChar  == '(' || followingChar  == ')' || followingChar  == '{' || followingChar  == '}' || followingChar  == '['  || followingChar  == ']'){
+  else if (followingChar  == '(' || followingChar  == ')' || followingChar  == '['  || followingChar  == ']'){
     charType = OPENCLOSE;
   } 
   else if  (followingChar  == '@' || followingChar  == '$' || followingChar  == '&' || followingChar  == '#'){
