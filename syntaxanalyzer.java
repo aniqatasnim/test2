@@ -39,7 +39,8 @@ public class syntaxanalyzer extends lexicalanalyzer {
 			error();
 			break;
       		}
-	// end the program with #END 
+		
+	// check to see if end the program with #END 
 		if(followingToken !=  END){
 			error();
 		}
@@ -56,9 +57,7 @@ public class syntaxanalyzer extends lexicalanalyzer {
           if(followingToken == RIGHT_PAREN){
             lex();
             statement();
-            (if followingToken != FINISHER){
-                error();
-            }
+
           }
           else{
             error();
@@ -131,9 +130,7 @@ public class syntaxanalyzer extends lexicalanalyzer {
     if(followingToken == ADD_OP || followingToken == SUB_OP){
       lex();
       term();
-      (if followingToken != FINISHER){
-        error();
-    }
+
   }
 
 // <term> --> <factor> { (`*`|`\`|`%`) <factor> }
