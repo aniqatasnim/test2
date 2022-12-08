@@ -14,6 +14,6 @@ because a statement should only a specific format and should be in. the correct 
 
 * F: write a program that determinse if the token conforms to the correct syntax --> syntaxanalyzer.java
 
-* G: Creating test case files. --> test1.txt, test2.txt, test3.txt, and test4.txt
+* G: Creating test case files --> test1.txt, test2.txt, test3.txt, and test4.txt
 
 * H:  create and LR Parse Table 
