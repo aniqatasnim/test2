@@ -10,29 +10,39 @@ public class syntaxanalyzer extends lexicalanalyzer {
 
 // <stmt> --> <if_stmt> | <while_stmt> | <as_s> | <block> 
     public static void statement() {
-        switch (followingToken) {
-	case ifstmt: 
-		ifstmt();
-		break;
-	case whileloop: 
-		whileloop();
-		break;
-	case loop:
-		loop();
-		break;
-	case boolexpr:
-		boolexpr();
-		break;
-	case assigning:
-		assigning();
-		break;
-	case block:
-		block();
-		break;
-	default :
-		error();
-		break;
-      	}
+	 // check to see if there is #START in the beginning of the program	    
+	if(followingToken != START){
+		 error():
+	}
+		else{
+
+		switch (followingToken) {
+		case ifstmt: 
+			ifstmt();
+			break;
+		case whileloop: 
+			whileloop();
+			break;
+		case loop:
+			loop();
+			break;
+		case boolexpr:
+			boolexpr();
+			break;
+		case assigning:
+			assigning();
+			break;
+		case block:
+			block();
+			break;
+		case _ :
+			error();
+			break;
+      		}
+	// end the program with #END 
+		if(followingToken !=  END){
+			error();
+		}
     }
 // <if_stmt> -->  `if``(`<bool_expr>`)` <stmt> [ `else` <stmt> ]
  public static void ifstmt(){
