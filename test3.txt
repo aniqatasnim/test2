@@ -3,11 +3,11 @@
     II lemon = 314#  --->  int lemon = 314; 
     II orange = 1104   --->  int orange = 1104;
     strawberries II = 1102# --->  int strawberries = 1102; 
-    II blueberries = hi ---> int blueberries = 304; 
+    II blueberries = 13! ---> int blueberries = 304; 
 
     II  num = 7# --> int num = 7;
 
-    conditon (orange + lemon <= strawberries) {   // if statement 
+    conditon (orange + lemon <= strawberries)   // if statement 
         orange = val +  strawberries#
     }
 END
@@ -18,8 +18,9 @@ we are checking a condition (if statement) and checking if the "price" of
 orange  + lemon is greater or equal to strawberries. if it is, we  reassign
 orange to orange + strawberries.
 
-// line 4 is missing # to end the statement 
+// line 4 missing # to end the statement 
 // line 5: we named our variable before assigning the type (wrong order)
-// line 6: "hi" is not an II (int) value and missing # at the end 
+// line 6: missing # at the end and used ! instead
+// line 10: missing left curly brace
 // line 11: variable val is never defined or declared 
 // line 14: the end of program is supposed to be #END 
