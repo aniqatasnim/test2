@@ -61,12 +61,12 @@ import java.io.File;
     static int DOT = 34;  // .
     static int AMP = 35;  // &
     static int DOL = 36;  // $
+    static int FINISHER = 89 // #  used at the end of a statement 
   
     static int IF_CODE = 37; // if statments
     static int LOOP = 38; // for loops
     static int WHILE = 39; // while loops 
   
-    static int VOID = 43;
     static String keywords[] = new String[] { "phor", "during", "match", "aswell, condition" }; // for, while, switch, and, condition
   
 // lookup - a function to look up operators, symbols, and parentheses and return the token
@@ -161,7 +161,7 @@ int lookup(char ch) {
     getChar();
     if(followingChar == " "){
       addChar();
-      followingToken = NUM;
+      followingToken = "FINISHER"; // used at the end of statement 
     } else if (followingChar == "START"){  //start of program
       followingToken = START;
     } else if (followingChar == "END"){ // end of program
@@ -208,26 +208,23 @@ public static int lex(){
        getChar();
       }
 
-      if (String.equals (lexeme, "and") == 0) {
+      if (String.equals (lexeme, "&&")) {
         followingToken = AND_OP;
       }      
-      else if (String.equals (lexeme, "or") == 0) {
+      else if (String.equals (lexeme, "~")) {
         followingToken = OR_OP;
       }  
-      else if (String.equals (lexeme, "string") == 0) {
+      else if (String.equals (lexeme, "SS")) {
         followingToken = TYPE_STRING;
       } 
-      else if (String.equals(lexeme, "char") == 0) {
+      else if (String.equals(lexeme, "CC")) {
         followingToken = TYPE_CHAR;
       } 
-      else if (String.equals (lexeme, "int") == 0) {
+      else if (String.equals (lexeme, "II")) {
         followingToken = TYPE_INT;
       }
-       else if (String.equals (lexeme, "float") == 0) {
+       else if (String.equals (lexeme, "FF")) {
         followingToken = TYPE_FLOAT;
-      } 
-      else if (String.equals (lexeme, "void") == 0) {
-        followingToken = VOID;
       } 
       else {
         followingToken =  IDENT;
@@ -237,7 +234,7 @@ public static int lex(){
     case DIG:
       addChar(); 
       getChar();
-      while (charType == DIG){
+      while (followingChar == DIG){
         addChar();
         getChar();
       }
@@ -265,7 +262,7 @@ public static int lex(){
       addChar();
       getChar();
       followingToken = TYPE_CHAR;
-      if (lexLen > 3) {
+      if (lexLen > 1) {
         System.out.println("Character is too long");
       }
       break;
@@ -334,7 +331,7 @@ public static void getChar() {
   else if (followingChar  == '(' || followingChar  == ')' || followingChar  == '['  || followingChar  == ']'){
     charType = OPENCLOSE;
   } 
-  else if  (followingChar  == '@' || followingChar  == '$' || followingChar  == '&' || followingChar  == '#'){
+  else if  (followingChar  == '@' || followingChar  == '$' || followingChar  == '&'){
     charType = SYM;
   } 
   else if  (followingChar  == '-' || followingChar  == '+' || followingChar  == '/' || followingChar  == '%' || followingChar  == '*'  || followingChar  == '='){
