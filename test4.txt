@@ -1,0 +1,21 @@
+#START
+    wallet II = 14#
+    II book = 1.3#
+    II candy = 1#
+    FC chips = 3# 
+
+    during (wallet > chips){
+        wallet - chips#
+    }   
+
+    condition (wallet >= ){
+        popcorn - candy#
+    }
+
+#END
+
+// line 1: we named our variable before assigning the type (wrong order)
+// line 2: invalid type, book is not an integer  
+// line 3: invalid condition
+// line 13: popcorn is not declared or assigned a value
+// line 5: unknown variable type
