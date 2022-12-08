@@ -10,9 +10,8 @@ import java.io.File;
     static int lexLen;
     static int token;
     static int followingToken;
-    static File in_fp;
-    static int info;
-    static Reader reader;
+    static int fileinfo;
+    static Reader filereader;
   
     /* Character classes */
     static int LET = 0; // letter 
@@ -316,8 +315,8 @@ void getNonBlank() {
 
 // getchar
 public static void getChar() {
-  info = reader.read(); 
-  info = (char) info;
+  fileinfo = filereader.read(); 
+  fileinfo = (char) fileinfo;
 
   if(info == 1){
     followingChar = info;
