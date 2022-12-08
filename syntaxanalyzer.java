@@ -10,10 +10,6 @@ public class syntaxanalyzer extends lexicalanalyzer {
 
 // <stmt> --> <if_stmt> | <while_stmt> | <as_s> | <block> 
     public static void statement() {
-	 // check to see if there is #START in the beginning of the program	    
-	if(followingToken != START){
-		 error():
-	}
 		else{
 
 		switch (followingToken) {
@@ -39,11 +35,7 @@ public class syntaxanalyzer extends lexicalanalyzer {
 			error();
 			break;
       		}
-		
-	// check to see if end the program with #END 
-		if(followingToken !=  END){
-			error();
-		}
+
     }
 // <if_stmt> -->  `if``(`<bool_expr>`)` <stmt> [ `else` <stmt> ]
  public static void ifstmt(){
@@ -260,6 +252,35 @@ public static void block(){
   		}
   	
     }
+// end of statment finisher
+static void finisher(){
+    statement();
+    if(followingToken != SEMI){
+        error();
+    } else  {
+        lex();
+        finisher();
+    }
+}
+
+static void startend(){
+    getChar();
+    lex();
+    if(followingToken != START){
+        error();
+    } else {
+        lex();
+        finisher();
+    }
+    getChar();
+    lex();
+    if(followingToken != END){
+        error();
+    } else {
+        
+    }
+
+}
   
   public static void error(){
     System.out.println("SYNTAX ERROR HAS BEEN FOUND");
