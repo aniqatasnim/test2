@@ -46,6 +46,9 @@ public class syntaxanalyzer extends lexicalanalyzer {
           if(followingToken == RIGHT_PAREN){
             lex();
             statement();
+            (if followingToken != FINISHER){
+                error();
+            }
           }
           else{
             error();
@@ -96,6 +99,8 @@ public class syntaxanalyzer extends lexicalanalyzer {
               if(followingToken == ASSIGN_OP){
                 lex();
                 expression();
+                (if followingToken != FINISHER){
+                    error();
               }
               else{
                 error();
@@ -116,6 +121,8 @@ public class syntaxanalyzer extends lexicalanalyzer {
     if(followingToken == ADD_OP || followingToken == SUB_OP){
       lex();
       term();
+      (if followingToken != FINISHER){
+        error();
     }
   }
 
@@ -248,6 +255,6 @@ public static void block(){
     }
   
   public static void error(){
-    System.out.println("SYNTAX ERROR");
+    System.out.println("SYNTAX ERROR HAS BEEN FOUND");
   }
 }
