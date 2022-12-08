@@ -10,8 +10,6 @@ public class syntaxanalyzer extends lexicalanalyzer {
 
 // <stmt> --> <if_stmt> | <while_stmt> | <as_s> | <block> 
     public static void statement() {
-		else{
-
 		switch (followingToken) {
 		case ifstmt: 
 			ifstmt();
